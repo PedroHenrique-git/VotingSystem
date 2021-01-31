@@ -12,10 +12,23 @@ function addOptions(quantity: number, votationInstance: Votation): void {
 const votation2 = new Votation("Qual sua cor favorita ?");
 addOptions(4, votation2);
 
+const option = new Option(`option 1`, 1);
+votation2.addOption(option);
+votation2.addOption(option);
+votation2.addOption(option);
+
+votation2.removeOption("option 1");
+
 votation2.addVote(1);
 votation2.addVote(1);
 votation2.addVote(2);
 votation2.addVote(3);
+votation2.addVote(1);
+votation2.addVote(1);
+votation2.addVote(2);
+votation2.addVote(3);
+votation2.addVote(4);
+votation2.addVote(4);
 votation2.addVote(4);
 votation2.addVote(4);
 

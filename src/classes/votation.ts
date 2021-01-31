@@ -12,20 +12,49 @@ export default class Votation {
     return this.options;
   }
 
-  addOption(candidate: Option): void {
-    this.options.push(candidate);
+  addOption(option: Option): void {
+    if (!this.checksRepeatedOptions(option)) {
+      this.options.push(option);
+    } else {
+      console.log(`the option "${option.Name}" already exists`);
+      return;
+    }
   }
 
-  removeOption(name: string): void {
-    const newCandidates = this.options.filter((option) => option.Name !== name);
+  removeOption(optionName: string): void {
+    const newCandidates = this.options.filter(
+      (option) => option.Name !== optionName,
+    );
     this.options = newCandidates;
   }
 
+  checkIfVoteExists(voteNumber: number): boolean {
+    const exists = this.options.findIndex(
+      (option) => option.NumberToVote === voteNumber,
+    );
+
+    if (exists !== -1) return true;
+    return false;
+  }
+
+  checksRepeatedOptions(newOption: Option): boolean {
+    const exists = this.Options.findIndex(
+      (option) => option.Name === newOption.Name,
+    );
+
+    if (exists !== -1) return true;
+    return false;
+  }
+
   addVote(voteNumber: number): void {
-    this.options.forEach((option) => {
-      if (voteNumber === option.NumberToVote) {
-        option.addNumberOfVotes();
-      }
-    });
+    if (this.checkIfVoteExists(voteNumber)) {
+      const index = this.options.findIndex(
+        (option) => option.NumberToVote === voteNumber,
+      );
+      this.Options[index].addNumberOfVotes();
+    } else {
+      console.log(`no option matches the number ${voteNumber}`);
+      return;
+    }
   }
 }

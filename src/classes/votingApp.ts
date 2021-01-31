@@ -16,7 +16,7 @@ export default class VotingApp {
 
   showsVotations(): void {
     this.votations.forEach((votation) => {
-      console.log(votation.PollQuestion);
+      console.log(`\n${votation.PollQuestion}`);
       this.showOptions(votation.Options);
       console.log("#######");
       console.log();
