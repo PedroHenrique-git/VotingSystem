@@ -14,12 +14,7 @@ export default class VotingApp {
     });
   }
 
-  showsVotations(): void {
-    this.votations.forEach((votation) => {
-      console.log(`\n${votation.PollQuestion}`);
-      this.showOptions(votation.Options);
-      console.log("#######");
-      console.log();
-    });
+  get Votations(): Votation[] {
+    return this.votations;
   }
 }

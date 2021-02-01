@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <script defer src="./assets/js/bundle.js"></script>
+  <title>Voting page</title>
+</head>
+<body>
+  <header>Voting app</header>
+  <main>
+    <div class="create-voting-container">
+      <form>
+        <label>
+          Poll question
+          <input type="text" name="poll" id="poll" placeholder="Poll question">
+        </label>
+        <label>
+          Option
+          <div class="inputs-options">
+            <input type="text" placeholder="name option" name="option" id="option">
+            <input type="number" name="numberOption" id="numberOption">
+            <a class="add-option">add</a>
+          </div>
+        </label>
+        <button class="create-voting">Create voting</button>
+      </form>
+    </div>
+    <div class="list-votings">
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,96 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+html, body {
+  width: 100%;
+}
+
+header {
+  background: #f3f2f3;
+  font-size: 28px;
+  font-weight: bolder;
+  height: 100px;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  background: #fff;
+  border: 4px solid #000;
+  color: #000;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  padding: 10px;
+  font-size: 22px;
+}
+
+.create-voting-container {
+  margin: 50px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-voting-container form {
+  width: 500px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.create-voting-container form label {
+  font-size: 18px;
+  margin-bottom: 25px;
+
+  display: flex;
+  flex-direction: column
+}
+
+.inputs-options {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inputs-options input[type="number"] {
+  width: 100px;
+}
+
+.create-voting-container form label input {
+  border: 1px solid black;
+  border-radius: 4px;
+  font-size: 18px;
+  padding: 4px;
+  outline: 0;
+  margin-top: 10px;
+}
+
+.list-votings {
+  padding: 0 30px;
+}
+
+.votation-card {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+
+.votation-card h2 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.votation-card .option {
+  display: flex;
+  justify-content: space-between;
+}

@@ -16,8 +16,7 @@ export default class Votation {
     if (!this.checksRepeatedOptions(option)) {
       this.options.push(option);
     } else {
-      console.log(`the option "${option.Name}" already exists`);
-      return;
+      throw new Error(`the option "${option.Name}" already exists`);
     }
   }
 
@@ -53,8 +52,7 @@ export default class Votation {
       );
       this.Options[index].addNumberOfVotes();
     } else {
-      console.log(`no option matches the number ${voteNumber}`);
-      return;
+      throw new Error(`no option matches the number ${voteNumber}`);
     }
   }
 }
