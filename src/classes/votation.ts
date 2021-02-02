@@ -20,13 +20,6 @@ export default class Votation {
     }
   }
 
-  removeOption(optionName: string): void {
-    const newCandidates = this.options.filter(
-      (option) => option.Name !== optionName,
-    );
-    this.options = newCandidates;
-  }
-
   checkIfVoteExists(voteNumber: number): boolean {
     const exists = this.options.findIndex(
       (option) => option.NumberToVote === voteNumber,

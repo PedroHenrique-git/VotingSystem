@@ -2,9 +2,60 @@ import Option from "./classes/options";
 import VotingApp from "./classes/votingApp";
 import Votation from "./classes/votation";
 
+// variables
 const form = document.querySelector("form") as HTMLFormElement;
 const addOptionBtn = document.querySelector(".add-option") as HTMLLinkElement;
-const options: Option[] = [];
+let id = 0;
+let options: Option[] = [];
+
+// functions
+
+function createVoting(options: Option[]): void {
+  const pollQuestion = document.querySelector("#poll") as HTMLInputElement;
+
+  if (options.length > 0 && pollQuestion.value !== "") {
+    try {
+      const votation = new Votation(pollQuestion.value);
+      options.forEach((option) => votation.addOption(option));
+      const votingApp = new VotingApp();
+      votingApp.addVotation(votation);
+      addVotingInHtml(votingApp);
+    } catch (e) {
+      alert(e.message);
+    }
+  } else {
+    return;
+  }
+}
+
+function addOption(): void {
+  id++;
+  const optionName = form.querySelector("#option") as HTMLInputElement;
+  const optionNumber = form.querySelector("#numberOption") as HTMLInputElement;
+  options.push(new Option(optionName.value, Number(optionNumber.value)));
+
+  const removeOption = (id: number): void => {
+    const newOptions = options.filter((option) => option.getId() !== id);
+    options = newOptions;
+  };
+
+  const element = document.createElement("span");
+  element.innerHTML = `${optionName.value} - ${optionNumber.value}`;
+
+  const removeBtn = document.createElement("button");
+  removeBtn.classList.add("remove-option");
+  removeBtn.innerText = "remove";
+
+  element.appendChild(removeBtn);
+
+  // not ideal
+  removeBtn.addEventListener("click", function () {
+    removeOption(id);
+    this.parentElement?.remove();
+  });
+
+  addOptionBtn.parentElement?.insertAdjacentElement("afterend", element);
+}
 
 const addVotingInHtml = (votingApp: VotingApp): void => {
   const votingInHtml = votingApp.Votations.map((votation) => {
@@ -23,7 +74,7 @@ const addVotingInHtml = (votingApp: VotingApp): void => {
       const p2 = document.createElement("p");
       p2.innerHTML = `
         <p>
-          Total votes: <span id=${option.NumberToVote} class="total-votes">${option.TotalNumberOfVotes}</span>
+          Total votes: <span class="total-votes">${option.TotalNumberOfVotes}</span>
         </p>
       `;
 
@@ -51,11 +102,15 @@ const addVotingInHtml = (votingApp: VotingApp): void => {
     votationInstance: Votation,
     option: Option,
   ): void => {
-    votationInstance.addVote(voteNumber);
-    const totalVotes = document.getElementById(
-      `${option.NumberToVote}`,
-    ) as HTMLSpanElement;
-    totalVotes.innerText = String(option.TotalNumberOfVotes);
+    try {
+      votationInstance.addVote(voteNumber);
+      const totalVotes = document.getElementById(
+        `${option.NumberToVote}`,
+      ) as HTMLSpanElement;
+      totalVotes.innerText = String(option.TotalNumberOfVotes);
+    } catch (e) {
+      alert(e.message);
+    }
   };
 
   votingInHtml.forEach((div) => {
@@ -63,39 +118,13 @@ const addVotingInHtml = (votingApp: VotingApp): void => {
   });
 };
 
-addOptionBtn.addEventListener("click", function () {
-  const optionName = form.querySelector("#option") as HTMLInputElement;
-  const optionNumber = form.querySelector("#numberOption") as HTMLInputElement;
-  options.push(new Option(optionName.value, Number(optionNumber.value)));
+// end functions
 
-  const element = `<span>
-    ${optionName.value} - ${optionNumber.value}
-    <button class="remove-option" nameOption=${optionName.value}>Remove</button>
-  </span>`;
-  this.parentElement?.insertAdjacentHTML("afterend", element);
+addOptionBtn.addEventListener("click", () => {
+  addOption();
 });
 
 form.addEventListener("submit", (e: Event) => {
   e.preventDefault();
-  const pollQuestion = document.querySelector("#poll") as HTMLInputElement;
-
-  if (options.length > 0 && pollQuestion.value !== "") {
-    try {
-      const votation = new Votation(pollQuestion.value);
-      options.forEach((option) => votation.addOption(option));
-      const votingApp = new VotingApp();
-      votingApp.addVotation(votation);
-      addVotingInHtml(votingApp);
-    } catch (e) {
-      alert(e.message);
-    }
-  } else {
-    return;
-  }
+  createVoting(options);
 });
-
-document
-  .querySelector(".remove-option")
-  ?.addEventListener("click", function () {
-    alert("teste");
-  });

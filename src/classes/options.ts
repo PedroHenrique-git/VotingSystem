@@ -1,7 +1,9 @@
 export default class Option {
   private numberOfVotes: number;
+  private static instance = 0;
   constructor(private name: string, private numberToVote: number) {
     this.numberOfVotes = 0;
+    Option.instance += 1;
   }
 
   set Name(name: string) {
@@ -20,11 +22,15 @@ export default class Option {
     return this.numberToVote;
   }
 
+  get TotalNumberOfVotes(): number {
+    return this.numberOfVotes;
+  }
+
   addNumberOfVotes(): void {
     this.numberOfVotes += 1;
   }
 
-  get TotalNumberOfVotes(): number {
-    return this.numberOfVotes;
+  getId(): number {
+    return Option.instance;
   }
 }
