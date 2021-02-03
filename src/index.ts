@@ -15,8 +15,6 @@ let Options: Option[] = [];
 
 function createVoting(options: Option[]): void {
   if (options.length > 0 && pollQuestion.value !== "") {
-    const oldOptions = [...Options];
-    Options.concat(oldOptions);
     try {
       const votation = new Votation(pollQuestion.value);
       options.forEach((option) => votation.addOption(option));
