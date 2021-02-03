@@ -6,7 +6,7 @@
 
 ## Getting Started
 
-install dependencies: <b>npm run install</b>
+install dependencies: <b>npm install</b>
 
 modify files: <b>npm run dev</b>
 
