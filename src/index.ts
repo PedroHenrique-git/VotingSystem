@@ -5,21 +5,25 @@ import Votation from "./classes/votation";
 // variables
 const form = document.querySelector("form") as HTMLFormElement;
 const addOptionBtn = document.querySelector(".add-option") as HTMLLinkElement;
+const optionName = form.querySelector("#option") as HTMLInputElement;
+const optionNumber = form.querySelector("#numberOption") as HTMLInputElement;
+const pollQuestion = document.querySelector("#poll") as HTMLInputElement;
 let id = 0;
-let options: Option[] = [];
+let Options: Option[] = [];
 
 // functions
 
 function createVoting(options: Option[]): void {
-  const pollQuestion = document.querySelector("#poll") as HTMLInputElement;
-
   if (options.length > 0 && pollQuestion.value !== "") {
+    const oldOptions = [...Options];
+    Options.concat(oldOptions);
     try {
       const votation = new Votation(pollQuestion.value);
       options.forEach((option) => votation.addOption(option));
       const votingApp = new VotingApp();
       votingApp.addVotation(votation);
       addVotingInHtml(votingApp);
+      resetElements();
     } catch (e) {
       alert(e.message);
     }
@@ -30,16 +34,15 @@ function createVoting(options: Option[]): void {
 
 function addOption(): void {
   id++;
-  const optionName = form.querySelector("#option") as HTMLInputElement;
-  const optionNumber = form.querySelector("#numberOption") as HTMLInputElement;
-  options.push(new Option(optionName.value, Number(optionNumber.value)));
+  Options.push(new Option(optionName.value, Number(optionNumber.value)));
 
   const removeOption = (id: number): void => {
-    const newOptions = options.filter((option) => option.getId() !== id);
-    options = newOptions;
+    const index = Options.findIndex((option) => option.getId() === id);
+    Options.splice(index, 1);
   };
 
   const element = document.createElement("span");
+  element.classList.add("option-span");
   element.innerHTML = `${optionName.value} - ${optionNumber.value}`;
 
   const removeBtn = document.createElement("button");
@@ -74,7 +77,7 @@ const addVotingInHtml = (votingApp: VotingApp): void => {
       const p2 = document.createElement("p");
       p2.innerHTML = `
         <p>
-          Total votes: <span class="total-votes">${option.TotalNumberOfVotes}</span>
+          Total votes: <span id=${option.NumberToVote} class="total-votes">${option.TotalNumberOfVotes}</span>
         </p>
       `;
 
@@ -118,6 +121,21 @@ const addVotingInHtml = (votingApp: VotingApp): void => {
   });
 };
 
+function resetElements(): void {
+  const optiosNodeList: NodeListOf<HTMLSpanElement> = document.querySelectorAll(
+    ".option-span",
+  );
+
+  for (let i = 0; i < optiosNodeList.length; i++) {
+    optiosNodeList[i].remove();
+  }
+
+  Options = [];
+  optionName.value = "";
+  optionNumber.value = "";
+  pollQuestion.value = "";
+}
+
 // end functions
 
 addOptionBtn.addEventListener("click", () => {
@@ -126,5 +144,5 @@ addOptionBtn.addEventListener("click", () => {
 
 form.addEventListener("submit", (e: Event) => {
   e.preventDefault();
-  createVoting(options);
+  createVoting(Options);
 });

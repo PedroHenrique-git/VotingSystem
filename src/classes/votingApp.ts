@@ -8,12 +8,6 @@ export default class VotingApp {
     this.votations.push(votation);
   }
 
-  private showOptions(arrayOptions: Option[]): void {
-    arrayOptions.forEach((option) => {
-      console.log(`${option.Name} - ${option.TotalNumberOfVotes}`);
-    });
-  }
-
   get Votations(): Votation[] {
     return this.votations;
   }
