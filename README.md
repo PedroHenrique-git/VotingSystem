@@ -16,7 +16,7 @@ open the files on a server, the vscode live server extension is very good
 
 <p align="left">
     <ul>
-        <li><a href="https://www.typescriptlang.org/">TypeScript<a><li>
+        <li><a href="https://www.typescriptlang.org/">TypeScript<a></li>
         <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/HTML">Html</a></li>
         <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/CSS">Css</a></li>
        <li><a href="https://webpack.js.org/">WebPack</a></li>
@@ -25,7 +25,8 @@ open the files on a server, the vscode live server extension is very good
 
 ## Images
 
-<img src="exemplo.png"/>
+<img src="/images/img1.png"/>
+<img src="/images/img2.png"/>
 
 ## License
 
